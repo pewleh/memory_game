@@ -24,6 +24,16 @@ var cards = [
 
 var cardsInPlay = []
 
+var flipCard = function (){
+var cardId = this.getAttribute("data-id");	
+this.setAttribute ("src", cards[cardId].cardImage); 
+console.log("User flipped" + " " + cards[cardId].rank);
+console.log("of" + " " + cards[cardId].suit);
+console.log(cards[cardId].cardImage);
+checkForMatch();
+cardsInPlay.push(cards[cardId].rank)
+}
+
 
 var checkForMatch = function (){
 if (cardsInPlay === 2) {
@@ -32,15 +42,15 @@ if (cardsInPlay === 2) {
 		alert("Sorry, try again!")
 }} 
 
-var flipCard = function (cardId){
-console.log("User flipped" + " " + cards[cardId].rank);
-console.log("of" + " " + cards[cardId].suit);
-console.log(cards[cardId].cardImage);
-checkForMatch();
-cardsInPlay.push(cards[cardId].rank)
-}
-flipCard(0);
-flipCard(2);
 
+var createBoard = function(){
+for (var i = 0; i < cards.length; i++)
+{
+var cardElement = document.createElement('img');
+cardElement.setAttribute("src", "images/back.png");	
+cardElement.setAttribute("data-id", i);
+cardElement.addEventListener("click", flipCard);
+document.getElementById('game-board').appendChild(cardElement);
+}}
 
-
+createBoard()
